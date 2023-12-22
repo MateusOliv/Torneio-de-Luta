@@ -1,0 +1,48 @@
+﻿@model List<Lutador>;
+@{
+    ViewData["Title"] = "Torneio de Luta";
+}
+
+<h1 class="display-1 text-center">Torneio de Luta</h1>
+
+
+@using (Html.BeginForm())
+{
+    <input class="btn btn-primary m-lg-2" type="submit" value="Iniciar Torneio" />
+    <div class="card-deck d-flex flex-wrap">
+        @for(int i = 0; i < Model.Count; i++)
+        {
+
+            <div class="card bg-light m-lg-2 mb-2" style="width: 14rem;" >
+                <div class="card-body text-center">
+                    <header class="card-header"> @Model[i].Nome </header>
+                    <label class="mb-2" >Selecionar: </label>
+
+                    @Html.HiddenFor(m => Model[i].Id)
+                    @Html.HiddenFor(m => Model[i].Nome)
+                    @Html.HiddenFor(m => Model[i].Idade)
+                    @Html.HiddenFor(m => Model[i].Lutas)
+                    @Html.HiddenFor(m => Model[i].Vitorias)
+                    @Html.HiddenFor(m => Model[i].Derrotas)
+
+                    @for(int j = 0; j < Model[i].ArtesMarciais.Count; j++)
+                    {
+                        @Html.HiddenFor(m => Model[i].ArtesMarciais[j])
+                    }
+                    
+                    @Html.HiddenFor(m => Model[i].Classificado)
+                    @Html.CheckBoxFor(m => Model[i].Selecionado, new { @value = "True" })
+                    
+
+                    <p class="card-text"> <strong> Idade: </strong> @Model[i].Idade </p>
+                    <p class="card-text"> <strong> Lutas: </strong> @Model[i].Lutas </p>
+                    <p class="card-text"> <strong> Vitorias: </strong> @Model[i].Vitorias</p>
+                    <p class="card-text"><strong> Derrotas: </strong> @Model[i].Derrotas</p>
+                    <p class="card-text"> <strong> Artes Marciais: </strong> @Model[i].ArtesMarciais.Count </p>
+                </div>
+            </div>
+        }  
+    </div>
+}
+
+
